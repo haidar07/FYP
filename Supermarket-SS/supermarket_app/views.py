@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import Group
 from . import forms
@@ -39,3 +39,21 @@ def afterlogin_view(request):
         return render(request, 'home/index.html')
     else:
         return render(request, 'home/index.html')
+
+
+# Trial
+def addproduct_view(request):
+  
+    if request.method == 'POST':
+        form = forms.AddProduct(request.POST, request.FILES)
+  
+        if form.is_valid():
+            form.save()
+            return redirect('success')
+    else:
+        form = forms.AddProduct()
+    return render(request, 'product/addproduct.html', {'form' : form})
+  
+  
+def success(request):
+    return HttpResponse('successfully uploaded')        

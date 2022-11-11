@@ -18,6 +18,9 @@ from django.conf.urls import include
 from django.urls import path
 from supermarket_app import views
 from django.contrib.auth.views import LoginView, LogoutView
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
 
@@ -52,4 +55,12 @@ urlpatterns = [
 
     # # Logout Link
     # path('logout', LogoutView.as_view(template_name='library/index.html')),
+
+    # Add Product
+    path('addproduct', views.addproduct_view, name = 'addproduct'),
+    path('success', views.success, name = 'success'),
 ]
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)
